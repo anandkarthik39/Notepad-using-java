@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 import java.sql.*;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.text.*;
 
 public class Main extends KeyAdapter  implements ActionListener, KeyListener
@@ -16,7 +19,7 @@ public class Main extends KeyAdapter  implements ActionListener, KeyListener
 	JFrame frame1;
 	JMenuBar npMenuBar;
 	JMenu file, edit, format, view;
-	JMenuItem newdoc, opendoc, exit, savedoc, saveasdoc, copydoc, pastedoc, remdoc,  fontfamily, fontstyle, fontsize, status;
+	JMenuItem newdoc, opendoc, exit, savedoc, saveasdoc, copydoc, pastedoc, remdoc,  fontfamily, fontstyle, fontsize, status,speak;
 	JTextArea maintext;
 	JTextField title;
 	Font font1;
@@ -98,6 +101,7 @@ Main(){
 	fontstyle = new JMenuItem("Set Font Style");
 	fontsize = new JMenuItem("Set Font Size");
 	status = new JMenuItem("Status");
+	speak=new JMenuItem("speech to text");
 
 	file.add(newdoc);
 	file.add(opendoc);
@@ -114,6 +118,7 @@ Main(){
 	format.add(fontsize);
 
 	view.add(status);
+	view.add(speak);
 
 	npMenuBar.add(file);
 	npMenuBar.add(edit);
@@ -129,6 +134,8 @@ Main(){
 	pastedoc.addActionListener(this);
 	remdoc.addActionListener(this);
 	status.addActionListener(this);
+	speak.addActionListener(this);
+	
 	savedoc.addActionListener(this);
 	saveasdoc.addActionListener(this);
 
@@ -178,6 +185,19 @@ public void actionPerformed(ActionEvent ae)
 				details.setText("Size: "+f.length());
 			}
 		}
+		catch (Exception e)
+		{
+			
+		}
+	}
+	
+	else if(ae.getSource()== speak)
+	{
+		
+			 try {
+                    Desktop.getDesktop().browse(new URI("https://gentle-eclair-c4d6ba.netlify.app/tts.html"));
+                }
+		
 		catch (Exception e)
 		{
 			
@@ -312,4 +332,3 @@ public static void main(String ar[])
 new Main();
 }
 }
-
